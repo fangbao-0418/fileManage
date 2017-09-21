@@ -3,19 +3,21 @@ extends layout
 block content
   h1= title
   div
-    输入地址：
+    | 输入地址：
     input
     span    eg: D:/
   button(style="margin-top: 10px;")
     | 搜索
   div
-    当前位置
+    | 当前位置
   table(style="margin-top: 30px;")
     thead
       th(width=400 style="text-align: left;") 文件
+      th 类型
       th 操作
     tbody
       each item in data
         tr
-          td= item
+          td= item.name
+          td= item.type
           td 删除 | 添加
