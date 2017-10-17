@@ -1,0 +1,12 @@
+doctype html
+html
+  head
+    title= title
+    if style
+      link(rel='stylesheet', href='/stylesheets/' + style)
+    if javascript
+      script(type='text/javascript', src='/javascripts/' + javascript)
+  body
+    p
+      | #{'/stylesheets/' + style}
+    block content
