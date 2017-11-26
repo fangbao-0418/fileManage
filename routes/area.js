@@ -11,6 +11,7 @@ const console = require('console');
 var globals = require('../globals');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
+  console.log(222);
   var url = "https://lsp.wuliu.taobao.com/locationservice/addr/output_address_town_array.do?l3=411329&lang=zh-S";
   var post = '';
   reqs = https.get(url, function(req1, res1) {
@@ -30,11 +31,19 @@ router.get('/', function(req, res, next) {
       }
 
       var paths = path.resolve(globals.root, 'json/city.json');
-      var buf = new Buffer(1024);
-      fs.open(paths, 'r', (err, fd) => {
+      var buf = new Buffer(1024*1024);
+      fs.open(paths, 'r+', (err, fd) => {
         fs.read(fd, buf, 0, buf.length, null, (err, buff, buff1) => {
-          console.log('start');
-          console.log(buf.toString('utf8'), 'buff')
+          var o = {}
+          if(buff > 0){
+            try{
+              o = eval('(' + buf.slice(0, buff).toString() + ')');
+            }catch(e){
+
+            }
+          }
+          console.log(o)
+          res.render('area', { title: '文件管理器2', style: 'index.css', javascript: 'index.js', data: o });
         })
         // fs.write(fd, JSON.stringify(data), (err, written, str) => {
         // })
@@ -43,7 +52,10 @@ router.get('/', function(req, res, next) {
     });
   });
   reqs.end();
-  res.render('area', { title: '文件管理器', style: 'index.css', javascript: 'index.js', data: {} });
+  // res.render('area', { title: '文件管理器', style: 'index.css', javascript: 'index.js', data: {} });
+  // setTimeout(() => {
+  //   res.render('area', { title: '文件管理器', style: 'index.css', javascript: 'index.js', data: 'xxx' });
+  // }, 1000)
 });
 
 module.exports = router;

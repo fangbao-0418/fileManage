@@ -39,7 +39,7 @@ function allResquest(requests, cb, results){
 }
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  var path = "/Users/gaoyanru/Documents/fangbao/fileManage"; // 此处输入目录
+  var path = "/Users/gaoyanru/Downloads/"; // 此处输入目录
   var data = [];
   var promises = [];
   // 读取目录
